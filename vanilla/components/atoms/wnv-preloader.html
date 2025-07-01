@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preloader Web Component</title>    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: #555;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .example-item {
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .example-item p {
+            margin: 0 0 20px 0;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .example-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .full-width-container {
+            width: 100%;
+        }
+
+        .full-height-container {
+            height: 200px;
+            position: relative;
+        }
+
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Preloader Web Component</h1>
+
+        <div class="section">
+            <h2>Línea Horizontal (type="line")</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <p>Por defecto</p>
+                    <div class="example-content">
+                        <nv-preloader type="line" width="100"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="line" width="150"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con alto específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="line" height="20" width="300"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con border radius 2</p>
+                    <div class="example-content">
+                        <nv-preloader type="line" width="120" border-radius="2"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con border radius 3</p>
+                    <div class="example-content">
+                        <nv-preloader type="line" width="120" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho full</p>
+                    <div class="example-content full-width-container">
+                        <nv-preloader width="full" type="line" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Línea Vertical (type="line-vertical")</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <p>Por defecto</p>
+                    <div class="example-content">
+                        <nv-preloader type="line-vertical"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="line-vertical" width="32"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con alto específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="line-vertical" height="100"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con border radius 2</p>
+                    <div class="example-content">
+                        <nv-preloader type="line-vertical" width="32" border-radius="2"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con border radius 3</p>
+                    <div class="example-content">
+                        <nv-preloader type="line-vertical" width="32" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con alto full</p>
+                    <div class="example-content full-height-container">
+                        <nv-preloader height="full" type="line-vertical" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Cuadrado (type="square")</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <p>Por defecto</p>
+                    <div class="example-content">
+                        <nv-preloader type="square"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho y alto específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="square" width="150" height="150"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con alto específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="square" height="100"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con border radius 2</p>
+                    <div class="example-content">
+                        <nv-preloader type="square" border-radius="2"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con border radius 3</p>
+                    <div class="example-content">
+                        <nv-preloader type="square" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho full</p>
+                    <div class="example-content full-width-container">
+                        <nv-preloader width="full" type="square" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Círculo (type="circle")</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <p>Por defecto</p>
+                    <div class="example-content">
+                        <nv-preloader type="circle"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho y alto específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="circle" width="150" height="150"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con alto específico</p>
+                    <div class="example-content">
+                        <nv-preloader type="circle" height="100"></nv-preloader>
+                    </div>
+                </div>
+
+                <div class="example-item">
+                    <p>Con ancho full</p>
+                    <div class="example-content full-width-container">
+                        <nv-preloader width="full" type="circle" border-radius="3"></nv-preloader>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Ejemplo Dinámico con JS</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <p>Cambiar tipo dinámicamente</p>
+                    <div class="example-content">
+                        <nv-preloader id="dynamic-type" type="line" width="150"></nv-preloader>
+                    </div>
+                    <button onclick="changeType()" style="margin-top: 10px; padding: 8px 16px;">Cambiar Tipo</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../bundle/custom-elements.min.js"></script>
+    <script>
+        function togglePreloader() {
+            const container = document.getElementById('dynamic-container');
+            const preloader = container.querySelector('nv-preloader');
+            
+            if (preloader) {
+                preloader.remove();
+            } else {
+                const newPreloader = document.createElement('nv-preloader');
+                newPreloader.type = 'circle';
+                newPreloader.width = '60';
+                newPreloader.height = '60';
+                container.appendChild(newPreloader);
+            }
+        }
+
+        let currentTypeIndex = 0;
+        const types = ['line', 'line-vertical', 'square', 'circle'];
+
+        function changeType() {
+            const preloader = document.getElementById('dynamic-type');
+            currentTypeIndex = (currentTypeIndex + 1) % types.length;
+            preloader.type = types[currentTypeIndex];
+
+            if (types[currentTypeIndex] === 'line-vertical') {
+                preloader.width = '20';
+                preloader.height = '80';
+            } else if (types[currentTypeIndex] === 'square' || types[currentTypeIndex] === 'circle') {
+                preloader.width = '80';
+                preloader.height = '80';
+            } else {
+                preloader.width = '150';
+                preloader.height = '';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            customElements.whenDefined('nv-preloader').then(() => {
+                console.log('✅ nv-preloader está listo para usar');
+            });
+        });
+    </script>
+</body>
+</html>

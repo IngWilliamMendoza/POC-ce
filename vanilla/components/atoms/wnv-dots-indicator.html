@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nv-dots-indicator Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            align-items: center;
+        }
+        
+        button {
+            padding: 8px 16px;
+            border: 1px solid #007acc;
+            background: #007acc;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #005999;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .info {
+            font-size: 14px;
+            color: #666;
+            margin: 0 10px;
+        }
+        
+        .dots-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>nv-dots-indicator</h1>
+
+        <div class="section">
+            <h2>Pocos Elementos (5 total)</h2>
+            <div class="controls">
+                <button onclick="prev1()" id="prev1">◀ Anterior</button>
+                <span class="info">Elemento <span id="current1">1</span> de <span id="total1">5</span></span>
+                <button onclick="next1()" id="next1">Siguiente ▶</button>
+            </div>
+            <div class="dots-container">
+                <nv-dots-indicator id="dots1" size-elements="5" current-element="1" aria-label="Indicador de página"></nv-dots-indicator>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../bundle/custom-elements.min.js"></script>
+    
+    <script>
+        let state = {
+            example1: { current: 1, total: 5 },
+            example2: { current: 1, total: 15 },
+            example3: { current: 1, total: 7 }
+        };
+
+        function updateDots(example, current) {
+            const dots = document.getElementById(`dots${example}`);
+            const currentSpan = document.getElementById(`current${example}`);
+            const prevBtn = document.getElementById(`prev${example}`);
+            const nextBtn = document.getElementById(`next${example}`);
+            
+            dots.setAttribute('current-element', current);
+            currentSpan.textContent = current;
+            
+            prevBtn.disabled = current <= 1;
+            nextBtn.disabled = current >= state[`example${example}`].total;
+        }
+
+        function prev1() {
+            if (state.example1.current > 1) {
+                state.example1.current--;
+                updateDots(1, state.example1.current);
+            }
+        }
+
+        function next1() {
+            if (state.example1.current < state.example1.total) {
+                state.example1.current++;
+                updateDots(1, state.example1.current);
+            }
+        }
+
+        function prev2() {
+            if (state.example2.current > 1) {
+                state.example2.current--;
+                updateDots(2, state.example2.current);
+            }
+        }
+
+        function next2() {
+            if (state.example2.current < state.example2.total) {
+                state.example2.current++;
+                updateDots(2, state.example2.current);
+            }
+        }
+
+        function prev3() {
+            if (state.example3.current > 1) {
+                state.example3.current--;
+                updateDots(3, state.example3.current);
+            }
+        }
+
+        function next3() {
+            if (state.example3.current < state.example3.total) {
+                state.example3.current++;
+                updateDots(3, state.example3.current);
+            }
+        }
+
+        function updateTotal() {
+            const select = document.getElementById('totalSelect');
+            const newTotal = parseInt(select.value);
+            
+            state.example3.total = newTotal;
+            state.example3.current = 1;
+            
+            const dots3 = document.getElementById('dots3');
+            const total3 = document.getElementById('total3');
+            
+            dots3.setAttribute('size-elements', newTotal);
+            dots3.setAttribute('current-element', 1);
+            total3.textContent = newTotal;
+            
+            updateDots(3, 1);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDots(1, 1);
+            updateDots(2, 1);
+            updateDots(3, 1);
+        });
+    </script>
+</body>
+</html>

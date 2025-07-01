@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nv-pictogram Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        
+        .item span {
+            font-size: 11px;
+            color: #666;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pictogram Web Component</h1>        
+        <input type="text" id="search" class="search-input" placeholder="Buscar ilustración...">        
+        <div class="grid" id="grid"></div>
+    </div>
+    
+    <script src="../../bundle/custom-elements.min.js"></script>
+    
+    <script>
+        const PICTOGRAMS = [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "pic-affinity",
+            "pic-angle-down",
+            "pic-aparment-coin",
+            "pic-aparment-studio-coin",
+            "pic-aparment-studio",
+            "pic-aparment",
+            "pic-arrow-diagonal",
+            "pic-arrow-right",
+            "pic-arrow-up",
+            "pic-bell",
+            "pic-bike",
+            "pic-book",
+            "pic-box",
+            "pic-briefcase-2",
+            "pic-briefcase-medical",
+            "pic-building-2",
+            "pic-bus",
+            "pic-calculator",
+            "pic-calendar-check",
+            "pic-calendar-month",
+            "pic-calendar",
+            "pic-camera",
+            "pic-car-half",
+            "pic-car",
+            "pic-card-contactless",
+            "pic-card-id",
+            "pic-card-prepago",
+            "pic-card-removing",
+            "pic-card",
+            "pic-cards",
+            "pic-change",
+            "pic-channels",
+            "pic-chart-pie",
+            "pic-chart",
+            "pic-check",
+            "pic-checks",
+            "pic-children",
+            "pic-circle-money",
+            "pic-circle-plus",
+            "pic-circle-question",
+            "pic-clock",
+            "pic-cloud-sun",
+            "pic-coffee",
+            "pic-coin",
+            "pic-coins-growth",
+            "pic-comment-line",
+            "pic-comments-dots",
+            "pic-constructor",
+            "pic-define",
+            "pic-desktop",
+            "pic-develop",
+            "pic-directions",
+            "pic-discover",
+            "pic-document",
+            "pic-documents",
+            "pic-download",
+            "pic-e-card",
+            "pic-elderly",
+            "pic-error",
+            "pic-face-angry",
+            "pic-face-grin-wink-1",
+            "pic-face-grin-wink-2",
+            "pic-face-laugh",
+            "pic-face-laughbeam",
+            "pic-face-meh",
+            "pic-face-sad",
+            "pic-face-smile",
+            "pic-file-add",
+            "pic-file-coin",
+            "pic-file-search",
+            "pic-files-money",
+            "pic-fire-extinguisher",
+            "pic-flight",
+            "pic-flypass",
+            "pic-folder",
+            "pic-frequent-questions",
+            "pic-gavel",
+            "pic-gem",
+            "pic-gift",
+            "pic-globe-2",
+            "pic-hand-five",
+            "pic-hand-four",
+            "pic-hand-handshake",
+            "pic-hand-holding-box",
+            "pic-hand-holding-card",
+            "pic-hand-holding-cash",
+            "pic-hand-holding-coins",
+            "pic-hand-holding-document",
+            "pic-hand-investment",
+            "pic-hand-one",
+            "pic-hand-paper",
+            "pic-hand-tap",
+            "pic-hand-three",
+            "pic-hand-two",
+            "pic-headset",
+            "pic-heart",
+            "pic-help-center",
+            "pic-hiking",
+            "pic-home",
+            "pic-hospital",
+            "pic-house-coin",
+            "pic-house",
+            "pic-id-fingerprint",
+            "pic-insert-coin",
+            "pic-investment",
+            "pic-invoice",
+            "pic-key",
+            "pic-laptop",
+            "pic-lightbulb",
+            "pic-like",
+            "pic-lock-dynamic-key",
+            "pic-lock-error",
+            "pic-lock",
+            "pic-mail",
+            "pic-marker",
+            "pic-medal-2",
+            "pic-medal",
+            "pic-megaphone",
+            "pic-mobile-info",
+            "pic-mobile-wave",
+            "pic-mobile",
+            "pic-money-2",
+            "pic-money-check",
+            "pic-money-exchange",
+            "pic-money-minus",
+            "pic-money-plus",
+            "pic-money",
+            "pic-motorcycle-scooter",
+            "pic-movie",
+            "pic-museum",
+            "pic-newslatter",
+            "pic-no-smoking",
+            "pic-password",
+            "pic-percentage",
+            "pic-pet",
+            "pic-phone-contact",
+            "pic-phone-money",
+            "pic-plant",
+            "pic-plug",
+            "pic-pocket",
+            "pic-printer",
+            "pic-project",
+            "pic-puntos-colombia",
+            "pic-qr-scan",
+            "pic-restaurant",
+            "pic-restroom",
+            "pic-rocket",
+            "pic-sack-cash",
+            "pic-saving",
+            "pic-search-2",
+            "pic-search-text",
+            "pic-search",
+            "pic-send-money-from",
+            "pic-send-money-to",
+            "pic-send-money",
+            "pic-settings",
+            "pic-share",
+            "pic-shield-assists",
+            "pic-shield-money",
+            "pic-shield-user",
+            "pic-shield",
+            "pic-shine",
+            "pic-shopping-cart-plus",
+            "pic-shopping",
+            "pic-slider-2",
+            "pic-smart-watch",
+            "pic-star",
+            "pic-start",
+            "pic-stethoscope",
+            "pic-stone",
+            "pic-store-error",
+            "pic-store-ok",
+            "pic-store",
+            "pic-sync-money",
+            "pic-sync",
+            "pic-tag-sale",
+            "pic-take-off",
+            "pic-temperature",
+            "pic-thumbtack",
+            "pic-trophy",
+            "pic-umbrella",
+            "pic-user-error",
+            "pic-user-money",
+            "pic-user-ok",
+            "pic-user",
+            "pic-view",
+            "pic-view",
+            "pic-volume",
+            "pic-wallet",
+            "pic-wheelchair",
+            "pic-withdraw-cash",
+        ]
+
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('search');
+
+        function createItem(name) {
+            const item = document.createElement('div');
+            item.className = 'item';
+            item.innerHTML = `
+                <nv-pictogram name="${name}" size="4rem" alt="${name}"></nv-pictogram>
+                <span>${name}</span>
+            `;
+            return item;
+        }
+
+        function loadPictograms(filter = '') {
+            grid.innerHTML = '';
+            PICTOGRAMS
+                .filter(name => name.includes(filter.toLowerCase()))
+                .forEach(name => grid.appendChild(createItem(name)));
+        }
+
+        search.addEventListener('input', e => loadPictograms(e.target.value));
+
+        document.addEventListener('DOMContentLoaded', () => loadPictograms());
+    </script>
+</body>
+</html>

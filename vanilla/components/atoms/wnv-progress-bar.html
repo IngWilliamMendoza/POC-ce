@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress bar Web Components</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .example-row {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 20px;            
+        }
+        .progress-horizontal{
+            display: inline-block;
+            width: 100px;
+            height: 110px;
+            margin-right: 50px;
+            margin-top: 50px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Progress Bar</h1>
+        <div class="section">
+            <div class="example-row">
+                <div id="pb-lineal"></div>
+                <div id="pb-circle"></div>
+                <div id="pb-semi-circle"></div>
+                <div class="progress-horizontal" id="pb-vertical"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../bundle/custom-elements.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let value = 10;
+            const pbLineal = document.getElementById('pb-lineal');
+            const pbCircle = document.getElementById('pb-circle');
+            const pbSemiCircle = document.getElementById('pb-semi-circle');
+            const pbVertical = document.getElementById('pb-vertical');
+
+            const progressBarLineal = document.createElement('nv-progress-bar');
+            progressBarLineal.setAttribute('background-color', 'light');
+            progressBarLineal.setAttribute('color', 'colors-secundary-01');
+            progressBarLineal.setAttribute('type', 'lineal');
+            progressBarLineal.setAttribute('accessibility-label', 'texto accesible');
+            progressBarLineal.setAttribute('value', value);
+            pbLineal.appendChild(progressBarLineal);
+
+            const progressBarCircle = document.createElement('nv-progress-bar');
+            progressBarCircle.setAttribute('background-color', 'light');
+            progressBarCircle.setAttribute('color', 'colors-secundary-01');
+            progressBarCircle.setAttribute('type', 'circle');
+            progressBarCircle.setAttribute('accessibility-label', 'texto accesible');
+            progressBarCircle.setAttribute('value', value);
+            const titleCircle = document.createElement('h3');
+            titleCircle.textContent = `${value}%`;
+            progressBarCircle.appendChild(titleCircle);
+            pbCircle.appendChild(progressBarCircle);
+
+            const progressBarSemiCircle = document.createElement('nv-progress-bar');
+            progressBarSemiCircle.setAttribute('background-color', 'light');
+            progressBarSemiCircle.setAttribute('color', 'colors-secundary-01');
+            progressBarSemiCircle.setAttribute('type', 'semi-circle');
+            progressBarSemiCircle.setAttribute('accessibility-label', 'texto accesible');
+            progressBarSemiCircle.setAttribute('value', value);
+            const titleSemiCircle = document.createElement('h3');
+            titleSemiCircle.textContent = `${value}%`;
+            progressBarSemiCircle.appendChild(titleSemiCircle);
+            pbSemiCircle.appendChild(progressBarSemiCircle);
+
+            const progressBarVertical = document.createElement('nv-progress-bar');
+            progressBarVertical.setAttribute('background-color', 'light');
+            progressBarVertical.setAttribute('color', 'colors-secundary-01');
+            progressBarVertical.setAttribute('type', 'lineal');
+            progressBarVertical.setAttribute('orientation', 'horizontal');
+            progressBarVertical.setAttribute('accessibility-label', 'texto accesible');
+            progressBarVertical.setAttribute('value', value);
+            pbVertical.appendChild(progressBarVertical);
+
+            setInterval(() => {
+                value = value + 10 > 100 ? 0 : value + 10;
+                progressBarLineal.setAttribute('value', value);
+                progressBarCircle.setAttribute('value', value);
+                progressBarSemiCircle.setAttribute('value', value);
+                progressBarVertical.setAttribute('value', value);
+
+                titleCircle.textContent = `${value}%`;
+                titleSemiCircle.textContent = `${value}%`;
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>

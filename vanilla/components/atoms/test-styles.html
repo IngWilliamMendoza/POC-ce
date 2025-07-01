@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Estilos @bancolombia/web-design</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .variable-test {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .component-test {
+            margin: 15px 0;
+        }
+        .debug-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test de Estilos - @bancolombia/web-design</h1>
+    
+    <div class="debug-info">
+        <h3>🔍 Información de Depuración</h3>
+        <p><strong>Propósito:</strong> Verificar que los estilos de @bancolombia/web-design se están aplicando correctamente a los custom elements.</p>
+        <p><strong>Instrucciones:</strong></p>
+        <ol>
+            <li>Abre DevTools (F12)</li>
+            <li>Ve a la pestaña "Elements" o "Elementos"</li>
+            <li>Busca tags &lt;style&gt; en el &lt;head&gt;</li>
+            <li>Verifica que las variables CSS estén definidas</li>
+            <li>Comprueba que los componentes tengan estilos aplicados</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>1. Variables CSS (Debería mostrar valores reales)</h2>
+        <div class="variable-test">
+            <div>--colors-primary-80: <span id="color-primary" style="display: inline-block; width: 20px; height: 20px; background: var(--colors-primary-80, red); border: 1px solid #000;"></span> <span id="color-primary-value"></span></div>
+            <div>--colors-secondary-80: <span id="color-secondary" style="display: inline-block; width: 20px; height: 20px; background: var(--colors-secondary-80, red); border: 1px solid #000;"></span> <span id="color-secondary-value"></span></div>
+            <div>--typo-font-family: <span id="font-family" style="font-family: var(--typo-font-family, serif);">Texto con fuente personalizada</span></div>
+            <div>--border-radius-full: <span id="border-radius" style="display: inline-block; width: 40px; height: 40px; background: #ddd; border-radius: var(--border-radius-full, 0);"></span></div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Componentes Custom Elements</h2>
+        <div class="component-test">
+            <h3>Badge:</h3>
+            <nv-badge>
+                <p>Badge Test</p>
+            </nv-badge>
+        </div>
+        
+        <div class="component-test">
+            <h3>Button:</h3>
+            <nv-button>Button Test</nv-button>
+        </div>
+        
+        <div class="component-test">
+            <h3>Icon:</h3>
+            <nv-icon name="icon-accepted-card"></nv-icon>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Clases de Utilidad</h2>
+        <div class="component-test">
+            <div class="text-primary">Texto con color primario (.text-primary)</div>
+            <div class="text-secondary">Texto con color secundario (.text-secondary)</div>
+            <div class="bg-primary">Fondo primario (.bg-primary)</div>
+            <div class="bg-secondary">Fondo secundario (.bg-secondary)</div>
+            <div class="m-4">Margen 4 (.m-4)</div>
+            <div class="p-4">Padding 4 (.p-4)</div>
+            <div class="rounded-full">Border radius full (.rounded-full)</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Estado de Carga de Estilos</h2>
+        <div id="styles-status">
+            <p>⏳ Verificando estado de los estilos...</p>
+        </div>
+    </div>
+
+    <!-- Cargar custom elements -->
+    <script src="../../bundle/custom-elements.min.js"></script>
+    
+    <script>
+        // Script para verificar el estado de los estilos
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkStyles, 1000); // Esperar a que se carguen los estilos
+        });
+
+        function checkStyles() {
+            const statusDiv = document.getElementById('styles-status');
+            const results = [];
+
+            // Verificar si hay estilos inyectados
+            const styleTags = document.querySelectorAll('style');
+            results.push(`📄 Style tags encontrados: ${styleTags.length}`);
+
+            // Verificar variables CSS específicas
+            const testElement = document.createElement('div');
+            document.body.appendChild(testElement);
+
+            const computedStyle = getComputedStyle(testElement);
+            
+            // Test variables comunes
+            const variables = [
+                '--colors-primary-80',
+                '--colors-secondary-80', 
+                '--typo-font-family',
+                '--border-radius-full',
+                '--spacing-4'
+            ];
+
+            let variablesFound = 0;
+            variables.forEach(variable => {
+                const value = computedStyle.getPropertyValue(variable);
+                if (value.trim()) {
+                    variablesFound++;
+                    results.push(`✅ ${variable}: ${value.trim()}`);
+                } else {
+                    results.push(`❌ ${variable}: No definida`);
+                }
+            });
+
+            document.body.removeChild(testElement);
+
+            // Verificar custom elements
+            const customElements = ['nv-badge', 'nv-button', 'nv-icon'];
+            let elementsRegistered = 0;
+            customElements.forEach(tag => {
+                if (window.customElements.get(tag)) {
+                    elementsRegistered++;
+                    results.push(`✅ ${tag}: Registrado`);
+                } else {
+                    results.push(`❌ ${tag}: No registrado`);
+                }
+            });
+
+            // Mostrar resultados
+            const summary = `
+                <h3>📊 Resumen:</h3>
+                <ul>
+                    <li>Style tags: ${styleTags.length}</li>
+                    <li>Variables CSS encontradas: ${variablesFound}/${variables.length}</li>
+                    <li>Custom elements registrados: ${elementsRegistered}/${customElements.length}</li>
+                </ul>
+                <h3>📋 Detalles:</h3>
+                <ul>
+                    ${results.map(result => `<li>${result}</li>`).join('')}
+                </ul>
+            `;
+
+            statusDiv.innerHTML = summary;
+
+            // Actualizar valores visuales
+            updateVisualValues();
+        }
+
+        function updateVisualValues() {
+            const root = document.documentElement;
+            const rootStyles = getComputedStyle(root);
+
+            // Actualizar colores
+            const colorPrimary = rootStyles.getPropertyValue('--colors-primary-80');
+            if (colorPrimary) {
+                document.getElementById('color-primary-value').textContent = colorPrimary;
+            }
+
+            const colorSecondary = rootStyles.getPropertyValue('--colors-secondary-80');
+            if (colorSecondary) {
+                document.getElementById('color-secondary-value').textContent = colorSecondary;
+            }
+        }
+    </script>
+</body>
+</html>

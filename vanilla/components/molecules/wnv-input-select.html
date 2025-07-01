@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Select</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+        }
+        .header p {
+            color: #6c757d;
+            margin: 0;
+        }
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .example-section {
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .example-section h3 {
+            margin: 0 0 1.5rem 0;
+            color: #495057;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        nv-input-select {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .form-section {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            margin-top: 1rem;
+        }
+        .phone-form {
+            display: flex;
+            gap: 0.5rem;
+            align-items: end;
+        }
+        .phone-form nv-input-select {
+            flex: 0 0 140px;
+        }
+        .phone-form nv-input-field {
+            flex: 1;
+        }
+        .usage-code {
+            background: #f1f3f4;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .usage-code h3 {
+            margin: 0 0 1rem 0;
+            color: #1a73e8;
+        }
+        .code-block {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            white-space: pre-wrap;
+            color: #333;
+        }
+        .control-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .control-buttons nv-button {
+            max-width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Web Components</h1>
+            <p>Input Select</p>
+        </div>
+
+        <div class="examples-grid">
+            <div class="example-section">
+                <h3>Selector de Frutas</h3>
+                <div>
+                    <nv-input-select id="fruit-select"></nv-input-select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../bundle/custom-elements.js"></script>
+    
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(initializeInputSelects, 100);
+        });
+
+        function initializeInputSelects() {
+            const fruitSelect = document.getElementById('fruit-select');
+            if (fruitSelect) {
+                fruitSelect.inputSelectFieldConfig = {
+                    idInput: 'fruit-input',
+                    label: 'Frutas Favoritas',
+                    placeholder: 'Selecciona una fruta...',
+                    icon: 'face-smile',
+                    helpText: 'Elige tu fruta favorita',
+                    floatMenuConfig: {
+                        items: [
+                            { title: 'Mango', value: 'mango' },
+                            { title: 'Sandía', value: 'sandia' },
+                            { title: 'Manzana', value: 'manzana' },
+                            { title: 'Naranja', value: 'naranja' },
+                            { title: 'Piña', value: 'pina' },
+                            { title: 'Uva', value: 'uva' }
+                        ],
+                        numberPreloaders: 3
+                    },
+                };
+
+                fruitSelect.addEventListener('openedFloatMenu', () => {
+                    console.log('Menú de frutas abierto');
+                });
+
+                fruitSelect.addEventListener('closedFloatMenu', () => {
+                    console.log('Menú de frutas cerrado');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

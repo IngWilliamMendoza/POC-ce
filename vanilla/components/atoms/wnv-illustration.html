@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nv-illustration Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        
+        .item span {
+            font-size: 11px;
+            color: #666;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>nv-illustration Web Component</h1>        
+        <input type="text" id="search" class="search-input" placeholder="Buscar ilustración...">        
+        <div class="grid" id="grid"></div>
+    </div>
+    
+    <script src="../../bundle/custom-elements.min.js"></script>
+    
+    <script>
+        const illustrations = [
+            'il-accept-terms', 'il-activation-face-id', 'il-adn', 'il-ad-products', 'il-amex',
+            'il-app-1', 'il-app-2', 'il-app-processes', 'il-app-processes-2', 'il-birthday',
+            'il-calendar-home', 'il-camera-permissions', 'il-card-financing', 'il-cards-1',
+            'il-cards-2', 'il-car-key', 'il-car-trip', 'il-cash-atm', 'il-chemistry',
+            'il-christmas', 'il-compare-products', 'il-configure-face-id', 'il-configure-face-id-1',
+            'il-configure-face-id-2', 'il-configure-touch-id', 'il-currency-pay', 'il-devices',
+            'il-enrollment-1', 'il-enrollment-2', 'il-enrollment-3', 'il-enrollment-indicator',
+            'il-entertainment', 'il-explore-home', 'il-explore-items', 'il-explore-money',
+            'il-face-id-wrong', 'il-family-1', 'il-family-home', 'il-fee-simulation',
+            'il-generic-bc', 'il-gift', 'il-growth', 'il-habitat-construction',
+            'il-habitat-sustainable', 'il-habitat-sustainable-project', 'il-hand-select',
+            'il-hardtoken-2', 'il-hardtoken', 'il-help', 'il-hexagono', 'il-holy-communion',
+            'il-home-check-list', 'il-location', 'il-location-home', 'il-location-mobility',
+            'il-love', 'il-manage-enrollment', 'il-marriage', 'il-master', 'il-master-seek',
+            'il-money-saving', 'il-networking', 'il-no-customer', 'il-not-found', 'il-pay-card',
+            'il-pre-approved-credit-online', 'il-process-error', 'il-process-mistake',
+            'il-process-ok', 'il-process-successful', 'il-puntos-colombia', 'il-qr-code',
+            'il-register-bill', 'il-register-bill-2', 'il-register-bill-3', 'il-request-accounts',
+            'il-request-cards', 'il-saving-car', 'il-saving-home', 'il-saving-home-1',
+            'il-scan-qr', 'il-select', 'il-send-receive-qr', 'il-setting-biometric',
+            'il-setting-biometric-face', 'il-setting-wallet', 'il-signature', 'il-softcorrecten',
+            'il-softoken-2', 'il-softoken', 'il-store', 'il-sv-process', 'il-touch-id-activacion-1',
+            'il-touch-id-activacion-2', 'il-touch-id-activation', 'il-vehicle-offer', 'il-visa',
+            'il-wallet', 'il-wallet-activation-1', 'il-wallet-activation-2', 'il-wallet-success',
+            'il-baby-shower', 'il-cajero', 'il-charts-general', 'il-corresponsal', 'il-documents',
+            'il-documents-folder', 'il-giftbox', 'il-gift-select', 'il-graduation',
+            'il-graduation-dark', 'il-life-insurance-hands', 'il-request-gift', 'il-request-gift-dark',
+            'il-request-gift-together', 'il-request-gift-together-dark', 'il-security-password-1',
+            'il-security-password-2', 'il-send-money-gift', 'il-send-money-international',
+            'il-send-money-international-dark', 'il-send-money-to', 'il-shield-security',
+            'il-shield-security-people', 'il-shield-security-people-dark', 'il-sucursal',
+            'il-sucursal-dark', 'il-transversal-sve', 'il-transversal-sve-dark',
+            'il-transversal-svp', 'il-transversal-svp-dark', 'il-risk', 'il-risk-dark',
+            'il-hand-rate', 'il-character-11', 'il-character-11-dark'
+        ];
+
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('search');
+
+        function createItem(name) {
+            const item = document.createElement('div');
+            item.className = 'item';
+            item.innerHTML = `
+                <nv-illustration name="${name}" size="4rem" alt="${name}"></nv-illustration>
+                <span>${name}</span>
+            `;
+            return item;
+        }
+
+        function loadIllustrations(filter = '') {
+            grid.innerHTML = '';
+            illustrations
+                .filter(name => name.includes(filter.toLowerCase()))
+                .forEach(name => grid.appendChild(createItem(name)));
+        }
+
+        search.addEventListener('input', e => loadIllustrations(e.target.value));
+
+        document.addEventListener('DOMContentLoaded', () => loadIllustrations());
+    </script>
+</body>
+</html>

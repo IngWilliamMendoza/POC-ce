@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nv-logo Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        
+        .item span {
+            font-size: 11px;
+            color: #666;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>nv-logo Web Component</h1>        
+        <input type="text" id="search" class="search-input" placeholder="Buscar logo...">        
+        <div class="grid" id="grid"></div>
+    </div>
+    
+    <script src="../../bundle/custom-elements.min.js"></script>
+    
+    <script>
+        const LOGOS = [
+            'amex-white',
+            'amex',
+            'applepay-white',
+            'applepay',
+            'bam-grupo-horizontal',
+            'bam-grupo-horizontal-negative',
+            'bam-grupo-vertical',
+            'bam-grupo-vertical-negative',
+            'Bam-horizontal',
+            'Bam-horizontal-negative',
+            'bam-vertical',
+            'bam-vertical-negative',
+            'banca-inversion-horizontal',
+            'banca-inversion-horizontal-negative',
+            'banca-inversion-vertical',
+            'banca-inversion-vertical-negative',
+            'bancoagrario-grupo-horizontal',
+            'bancoagrario-grupo-horizontal-negative',
+            'bancoagrario-grupo-vertical',
+            'bancoagrario-grupo-vertical-negative',
+            'bancoagrario-horizontal',
+            'bancoagrario-horizontal-negative',
+            'bancoagrario-vertical',
+            'bancoagrario-vertical-negative',
+            'bancolombia-grupo-horizontal',
+            'bancolombia-grupo-horizontal-negative',
+            'bancolombia-grupo-vertical',
+            'bancolombia-grupo-vertical-negative',
+            'bancolombia-cayman-horizontal',
+            'bancolombia-cayman-horizontal-negative',
+            'bancolombia-cayman-vertical',
+            'bancolombia-cayman-vertical-negative',
+            'bancolombia-panama-horizontal',
+            'bancolombia-panama-horizontal-negative',
+            'bancolombia-panama-vertical',
+            'bancolombia-panama-vertical-negative',
+            'bancolombia-puertorico-horizontal',
+            'bancolombia-puertorico-horizontal-negative',
+            'bancolombia-puertorico-vertical',
+            'bancolombia-puertorico-vertical-negative',
+            'isotipo-bancolombia',
+            'isotipo-bancolombia-negative',
+            'bancolombia-horizontal',
+            'bancolombia-horizontal-negative',
+            'bancolombia-vetical',
+            'bancolombia-vetical-negative',
+            'grupo-bancolombia-banitsmo-horizontal',
+            'grupo-bancolombia-banitsmo-horizontal-negative',
+            'grupo-bancolomba-banitsmo-vertical',
+            'grupo-bancolomba-banitsmo-vertical-negative',
+            'banitsmo-horizontal',
+            'banitsmo-horizontal-negative',
+            'banitsmo-vertial',
+            'banitsmo-vertial-negative',
+            'fundacion-grupo-bancolombia-horizontal',
+            'fundacion-grupo-bancolombia-horizontal-negative',
+            'fundacion-grupo-bancolombia-vertical',
+            'fundacion-grupo-bancolombia-vertical-negative',
+            'grupo-bancolombia',
+            'grupo-bancolombia-negative',
+            'grupo-bancolombia-horizontal',
+            'grupo-bancolombia-horizontal-negative',
+            'grupo-bancolombia-vertical',
+            'grupo-bancolombia-vertical-negative',
+            'logo-vigilado',
+            'logo-vigilado-negative',
+            'maestro',
+            'maestro-negative',
+            'mastercard',
+            'visa-white',
+            'visa',
+            'bancolombia-horizontal-no-spacing',
+            'bancolombia-horizontal-no-spacing-negative',
+            'grupo-bancolombia-horizontal-no-spacing',
+            'grupo-bancolombia-horizontal-no-spacing-negative',
+            'Gestor-transaccional',
+            'Gestor-transaccional-negative',
+            'grupo-bancolombia-capital',
+            'grupo-bancolombia-capital-negative',
+            'isotipo-grupo-bancolombia',
+            'isotipo-grupo-bancolombia-negative',
+            'Logo-Bre-b',
+            'Logo-Bre-b-3',
+            'Logo-Bre-b-2',
+            'Logo-Bre-b-1',
+            'grupo-cibest',
+            'grupo-cibest-negative',
+            'grupo-cibest-horizontal',
+            'grupo-cibest-horizontal-negative',
+            'Bre-B-Bancolombia'
+        ];
+
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('search');
+
+        function createItem(name) {
+            const item = document.createElement('div');
+            item.className = 'item';
+            item.innerHTML = `
+                <nv-logo name="${name}" size="4rem" alt="${name}"></nv-logo>
+                <span>${name}</span>
+            `;
+            return item;
+        }
+
+        function loadLogos(filter = '') {
+            grid.innerHTML = '';
+            LOGOS
+                .filter(name => name.includes(filter.toLowerCase()))
+                .forEach(name => grid.appendChild(createItem(name)));
+        }
+
+        search.addEventListener('input', e => loadLogos(e.target.value));
+
+        document.addEventListener('DOMContentLoaded', () => loadLogos());
+    </script>
+</body>
+</html>
