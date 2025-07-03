@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Web components</title>
+</head>
+<body>
+    <wnv-button 
+        id="button-modal"
+        type-button="primary" 
+        size-button="small"
+        icon-name="icon-home">
+        Abrir modal
+    </wnv-button>
+    <wnv-modal id="modal-custom-elements" aria-label="modal">
+    </wnv-modal>
+
+    <script src="../../bundle/custom-elements.min.js"></script>
+
+    <script>
+        const buttonsConfig = [
+            {
+                id: 'cancel',
+                label: 'Cancel',
+                type: 'secondary'    
+            },
+            {
+                id: 'accept',
+                label: 'Accept',
+                type: 'primary'    
+            }
+        ]
+
+        window.addEventListener('load', () => {
+            setTimeout(initializeModal, 100);
+        });
+
+        function initializeModal() {
+            const btnModal = document.getElementById('button-modal');
+            const modal = document.getElementById('modal-custom-elements');
+            if (modal) {                
+                modal.modalConfig = {
+                    buttons: {
+                        enabled: true,
+                        buttonsList: [
+                            {
+                                id: 'cancel',
+                                label: 'Cancel',
+                                type: 'secondary'    
+                            },
+                            {
+                                id: 'accept',
+                                label: 'Accept',
+                                type: 'primary'    
+                            }
+                        ],
+                        orientation: 'horizontal'
+                    }
+
+                }
+                
+                console.log('modal', modal)
+                if (btnModal) {
+                    btnModal.addEventListener('buttonClick', () => {
+                        console.log('abrir modal')
+                        modal.isVisibleModal = true
+                        
+                    })
+                }
+
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
